@@ -385,6 +385,7 @@
         <li><a href="#offers">Offers</a></li>
         <li><a href="#pricing">Pricing</a></li>
         <li><a href="#contact">Contact</a></li>
+        <li><a href="https://ifcportal.vercel.app" rel="noopener">Student Login</a></li>
       </ul>
     </nav>
     <div style="display:flex;align-items:center;gap:10px;">
@@ -687,8 +688,24 @@
           </div>
           <div class="field">
             <label for="email">Email</label>
-            <input type="email" id="email" name="email" required>
+            <input type="email" id="email" name="email" required autocomplete="email">
           </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="password">Choose a password (at least 8 characters)</label>
+            <input type="password" id="password" name="password" required minlength="8" autocomplete="new-password">
+          </div>
+          <div class="field">
+            <label for="password2">Type the password again</label>
+            <input type="password" id="password2" name="password2" required minlength="8" autocomplete="new-password">
+          </div>
+        </div>
+        <div class="form-note" style="margin:-6px 0 14px;">This creates your free student portal account. You use it to log in after we approve your registration.</div>
+        <!-- Honeypot: hidden from people, bots fill it in -->
+        <div aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">
+          <label for="company_site">Leave this field empty</label>
+          <input type="text" id="company_site" name="company_site" tabindex="-1" autocomplete="off">
         </div>
         <div class="field-row">
           <div class="field">
@@ -759,10 +776,17 @@
           <label for="message">Anything else we should know?</label>
           <textarea id="message" name="message" rows="3"></textarea>
         </div>
-        <button type="submit" class="btn btn-primary" style="width:100%;">Book my free session</button>
+        <div id="turnstileBox" style="margin-bottom:14px;"></div>
+        <button type="submit" class="btn btn-primary" id="regSubmit" style="width:100%;">Book my free session</button>
         <p class="form-note">We’ll only use your details to arrange your session and send course updates — no other mailing lists.</p>
         <div id="confirm">Thanks — your request is in! We’ll contact you within one business day to arrange your free placement test session.</div>
       </form>
+      <div id="regSuccess" style="display:none;text-align:center;padding:30px 10px;">
+        <div style="font-size:44px;line-height:1;">✅</div>
+        <h3 style="font-family:var(--font-display);font-size:24px;margin:14px 0 10px;">Thanks for registering!</h3>
+        <p style="color:var(--muted);margin:0 0 20px;">Your registration is received. We’ll contact you within one business day to arrange your free placement test session. Log in to your student portal to see your status.</p>
+        <a class="btn btn-primary" href="https://ifcportal.vercel.app" rel="noopener">Log in to your student portal</a>
+      </div>
     </div>
   </div>
 </section>
@@ -816,6 +840,7 @@
   </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
   // Pink October (and the October-only offers) switch off from November 1, 2026
   if(new Date() >= new Date('2026-11-01T00:00:00')) document.body.classList.remove('pink-october');
@@ -944,33 +969,105 @@
   const form = document.getElementById('regForm');
   const confirmBox = document.getElementById('confirm');
 
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const formData = new FormData(form);
-    // After October the Ladies' question is hidden, so don't send its default answer
-    if(!document.body.classList.contains('pink-october')) formData.delete('ladies_offer');
-    if(document.body.classList.contains('grad-offer-ended')) formData.delete('grad_2026');
-    fetch(form.action, {
-      method: "POST",
-      body: formData,
-      headers: { "Accept": "application/json" }
-    })
-      .then((response) => {
-        if(response.ok){
-          confirmBox.textContent = "Thanks — your request is in! We’ll contact you within one business day to arrange your free placement test session.";
-          confirmBox.classList.add('show');
-          form.reset();
-          updateHints();
-          confirmBox.scrollIntoView({behavior:'smooth', block:'nearest'});
-        } else {
-          throw new Error('Submission failed');
-        }
-      })
-      .catch(() => {
-        confirmBox.textContent = "Something went wrong sending your request — please message us on WhatsApp at +20 155 702 5096 or email moniasallam25@gmail.com.";
-        confirmBox.classList.add('show');
-        confirmBox.scrollIntoView({behavior:'smooth', block:'nearest'});
+  // ---- Student portal account (Supabase) + bot protection (Cloudflare Turnstile) ----
+  // These two values are public by design. The Turnstile SECRET key lives only in Supabase.
+  const SUPABASE_URL = 'https://ivmqkttfwowiltsbzfty.supabase.co';
+  const SUPABASE_ANON_KEY = 'sb_publishable_zsav79J9oXeRMLWVmL3OmQ_PVGVGET7';
+  const TURNSTILE_SITE_KEY = '0x4AAAAAAF-V62NjJrVYTQpf'; // Cloudflare Turnstile SITE key (public)
+  const PORTAL_URL = 'https://ifcportal.vercel.app';
+
+  const sb = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+  let turnstileToken = '';
+  let turnstileWidget = null;
+  if(TURNSTILE_SITE_KEY){
+    const ts = document.createElement('script');
+    ts.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+    ts.async = true; ts.defer = true;
+    ts.onload = () => {
+      turnstileWidget = window.turnstile.render('#turnstileBox', {
+        sitekey: TURNSTILE_SITE_KEY,
+        callback: (t) => { turnstileToken = t; },
+        'expired-callback': () => { turnstileToken = ''; },
+        'error-callback': () => { turnstileToken = ''; }
       });
+    };
+    document.head.appendChild(ts);
+  }
+
+  function showFormMessage(text){
+    confirmBox.textContent = text;
+    confirmBox.classList.add('show');
+    confirmBox.scrollIntoView({behavior:'smooth', block:'nearest'});
+  }
+  function showSuccess(){
+    form.style.display = 'none';
+    document.getElementById('regSuccess').style.display = 'block';
+    document.getElementById('regSuccess').scrollIntoView({behavior:'smooth', block:'center'});
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    confirmBox.classList.remove('show');
+
+    // Honeypot: people never see this field; if it is filled in, a bot did it. Pretend all is well.
+    if(form.company_site.value.trim() !== ''){ showSuccess(); return; }
+
+    const email = form.email.value.trim();
+    const password = form.password.value;
+    if(password.length < 8){ showFormMessage('Please choose a password with at least 8 characters.'); return; }
+    if(password !== form.password2.value){ showFormMessage('The two passwords do not match. Please type them again.'); return; }
+    if(!sb){ showFormMessage('Something went wrong loading the sign-up. Please refresh the page, or message us on WhatsApp at +20 155 702 5096.'); return; }
+    if(TURNSTILE_SITE_KEY && !turnstileToken){ showFormMessage('Please wait for the security check above the button to finish, then try again.'); return; }
+
+    const btn = document.getElementById('regSubmit');
+    btn.disabled = true;
+    const oldLabel = btn.textContent; btn.textContent = 'Registering…';
+    try {
+      // 1) Create the portal account. The portal itself sets the status to "pending";
+      //    nothing sent from this form can change that.
+      const signUpOptions = { data: {
+        full_name: form.full_name.value.trim(),
+        phone: form.whatsapp.value.trim(),
+        country: form.country.value.trim(),
+        course_interest: form.course_track.value
+      }};
+      if(turnstileToken) signUpOptions.captchaToken = turnstileToken;
+      const { data, error } = await sb.auth.signUp({ email, password, options: signUpOptions });
+      if(error){
+        if(turnstileWidget !== null){ window.turnstile.reset(turnstileWidget); turnstileToken = ''; }
+        const m = (error.message || '').toLowerCase();
+        if(m.includes('already registered') || m.includes('already been registered')){
+          showFormMessage('This email already has an account. Please log in to the student portal at ' + PORTAL_URL + ' (use “Forgot password?” if you need to).');
+        } else if(m.includes('password')){
+          showFormMessage('That password is not accepted: ' + error.message);
+        } else {
+          showFormMessage('We could not create your account: ' + error.message + '. Please try again, or message us on WhatsApp at +20 155 702 5096.');
+        }
+        return;
+      }
+      // Supabase hides whether an email is already taken when confirmation is on; an empty identities list means "taken".
+      if(data && data.user && Array.isArray(data.user.identities) && data.user.identities.length === 0){
+        showFormMessage('This email already has an account. Please log in to the student portal at ' + PORTAL_URL + ' (use “Forgot password?” if you need to).');
+        return;
+      }
+      try { await sb.auth.signOut(); } catch(_) {}
+
+      // 2) Notification email to the owner (Formspree). Never sends the passwords or the security fields.
+      const formData = new FormData(form);
+      ['password', 'password2', 'company_site', 'cf-turnstile-response'].forEach(k => formData.delete(k));
+      // After October the Ladies' question is hidden, so don't send its default answer
+      if(!document.body.classList.contains('pink-october')) formData.delete('ladies_offer');
+      if(document.body.classList.contains('grad-offer-ended')) formData.delete('grad_2026');
+      try {
+        await fetch(form.action, { method: 'POST', body: formData, headers: { 'Accept': 'application/json' } });
+      } catch(_) { /* the account exists already; a missed notification email must not stop the student */ }
+
+      form.reset();
+      updateHints();
+      showSuccess();
+    } finally {
+      btn.disabled = false; btn.textContent = oldLabel;
+    }
   });
 </script>
 
