@@ -201,9 +201,18 @@
   }
   .step-num{font-family:var(--font-mono);font-size:30px;font-weight:600;color:var(--gold);line-height:1;}
 
-  .old-price{font-family:var(--font-mono);font-size:14px;font-weight:500;color:var(--muted);text-decoration:line-through;margin-right:8px;}
-  .until-note{font-family:var(--font-body);font-size:12.5px;font-weight:500;color:var(--muted);margin-left:8px;}
-  body.pink-october .regular-price{display:none;}
+  /* Prices: Egyptian pounds first (large), US dollars underneath (small). Fixed prices, no conversion. */
+  .price .egp{display:block;font-family:var(--font-mono);font-size:22px;font-weight:700;line-height:1.2;color:var(--ink);white-space:nowrap;}
+  .price .usd{display:block;font-family:var(--font-mono);font-size:13.5px;font-weight:500;color:var(--muted);margin-top:2px;}
+  .price .was{display:block;font-family:var(--font-mono);font-size:13px;font-weight:500;color:var(--muted);margin-bottom:2px;}
+  .price .was s{text-decoration-thickness:1.5px;}
+  .price-options{display:flex;gap:28px;flex-wrap:wrap;}
+  .price-options .opt-label{display:block;font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--teal);margin-bottom:4px;}
+  .price-hint{display:none;margin-top:10px;padding:10px 12px;border:1px solid var(--line);border-radius:var(--radius);background:var(--white);font-size:13px;color:var(--muted);}
+  .price-hint.show{display:block;}
+  .price-hint .price{margin:4px 0 0;padding:0;border:0;}
+  .price-hint .price .egp{font-size:18px;}
+  .price-hint .save-note{display:block;font-size:12.5px;font-weight:500;color:var(--teal);margin-top:4px;}
   .ladies-line{
     margin-top:14px;font-size:14px;color:var(--ink);
     background:rgba(194,84,122,0.08);border:1px solid rgba(194,84,122,0.35);
@@ -534,6 +543,7 @@
         <h3>Speak fluently and confidently</h3>
         <div class="meta">4 weeks · 2 sessions a week · 2.5 hrs/session</div>
         <div class="desc">Fluency, pronunciation, and building full answers, with the topic vocabulary and grammar to express your ideas clearly.</div>
+        <div class="price"><span class="egp">3,500 EGP</span><span class="usd">$70</span></div>
       </div>
       <div class="course">
         <span class="course-badge">Writing</span>
@@ -541,6 +551,7 @@
         <h3>Write clearly and accurately</h3>
         <div class="meta">4 weeks · 2 sessions a week · 2.5 hrs/session</div>
         <div class="desc">Paragraph and essay structure, accuracy, and the vocabulary to develop your ideas, with marked feedback on your writing.</div>
+        <div class="price"><span class="egp">3,500 EGP</span><span class="usd">$70</span></div>
       </div>
       <div class="course highlight">
         <span class="course-badge">Both</span>
@@ -548,6 +559,7 @@
         <h3>Both tracks together</h3>
         <div class="meta">4 weeks · 4 sessions a week (Sun–Wed) · 2.5 hrs/session</div>
         <div class="desc">For students who need work on both productive skills: one session a day, Sunday to Wednesday.</div>
+        <div class="price"><span class="was"><s>7,000 EGP</s> <s>$140</s></span><span class="egp">6,000 EGP</span><span class="usd">$120</span><span class="save-note">Save 1,000 EGP</span></div>
       </div>
     </div>
 
@@ -561,6 +573,10 @@
         <h3>Five weeks of exam preparation</h3>
         <div class="meta">5 weeks · 4 sessions a week (Sun–Wed) · 2.5 hrs/session</div>
         <div class="desc">All four exam skills, including reading and listening strategies, writing and speaking tasks, and practice tests. If your placement test shows you’re ready, you start here.</div>
+        <div class="price price-options">
+          <div><span class="opt-label">Group</span><span class="egp">5,000 EGP</span><span class="usd">$100</span></div>
+          <div><span class="opt-label">Private</span><span class="egp">6,000 EGP</span><span class="usd">$120</span></div>
+        </div>
       </div>
     </div>
 
@@ -605,7 +621,7 @@
             <li>3 days of Writing practice (2 hrs each)</li>
           </ul>
         </div>
-        <div class="price">$20</div>
+        <div class="price"><span class="egp">1,000 EGP</span><span class="usd">$20</span></div>
         <a href="#register" class="btn btn-primary offer-cta" data-select="Last-Minute Booster Camp (Nov 15–20)">Book the November Booster</a>
       </div>
     </div>
@@ -614,47 +630,47 @@
     <div class="section-head" id="pricing" style="margin-top:56px;margin-bottom:24px;">
       <div class="eyebrow">Pricing</div>
       <h2 style="font-size:26px;">Pay only for what you need</h2>
-      <p>Your free placement test session tells you which plan fits. Packages can be paid in two installments.</p>
+      <p>Your free placement test session tells you which plan fits. Ask us about paying in two installments.</p>
       <p class="ladies-line october-only">🎀 Women who book their free placement test session in October get <strong>20% off</strong> instead. We’ll confirm your exact price at your free session.</p>
       <p class="discount-note grad-offer">🎓 2026 high school graduate? Get <strong>26% off</strong> — just answer the question in the form below.</p>
     </div>
     <div class="courses pricing-grid">
       <div class="course">
-        <div class="range">ONE TRACK</div>
-        <h3>Speaking or Writing</h3>
-        <div class="desc">One focus track: 8 sessions over 4 weeks.</div>
-        <div class="price"><span class="regular-price">$70</span><span class="october-only"><span class="old-price">$70</span>$59<span class="until-note">until Oct 31</span></span></div>
+        <div class="range">SPEAKING TRACK</div>
+        <h3>Speaking Round</h3>
+        <div class="desc">1 month: 8 sessions over 4 weeks.</div>
+        <div class="price"><span class="egp">3,500 EGP</span><span class="usd">$70</span></div>
       </div>
       <div class="course">
-        <div class="range">BOTH TRACKS</div>
-        <h3>Speaking + Writing</h3>
-        <div class="desc">Both focus tracks: 16 sessions over 4 weeks.</div>
-        <div class="price"><span class="regular-price">$120</span><span class="october-only"><span class="old-price">$120</span>$102<span class="until-note">until Oct 31</span></span><span class="save-note">Save $20</span></div>
-      </div>
-      <div class="course">
-        <div class="range">DIRECT ENTRY</div>
-        <h3>IELTS Preparation</h3>
-        <div class="desc">20 sessions over 5 weeks, all four exam skills.</div>
-        <div class="price"><span class="regular-price">$130</span><span class="october-only"><span class="old-price">$130</span>$110<span class="until-note">until Oct 31</span></span></div>
-      </div>
-      <div class="course">
-        <div class="range">PACKAGE</div>
-        <h3>One track + IELTS Preparation</h3>
-        <div class="desc">One focus track, then 5 weeks of IELTS Preparation.</div>
-        <div class="price"><span class="regular-price">$180</span><span class="october-only"><span class="old-price">$180</span>$153<span class="until-note">until Oct 31</span></span><span class="save-note">Save $20</span></div>
+        <div class="range">WRITING TRACK</div>
+        <h3>Writing Round</h3>
+        <div class="desc">1 month: 8 sessions over 4 weeks.</div>
+        <div class="price"><span class="egp">3,500 EGP</span><span class="usd">$70</span></div>
       </div>
       <div class="course highlight">
-        <span class="course-badge">Full path</span>
-        <div class="range">PACKAGE</div>
-        <h3>Both tracks + IELTS Preparation</h3>
-        <div class="desc">Both focus tracks, then 5 weeks of IELTS Preparation.</div>
-        <div class="price"><span class="regular-price">$230</span><span class="october-only"><span class="old-price">$230</span>$195<span class="until-note">until Oct 31</span></span><span class="save-note">Save $20</span></div>
+        <span class="course-badge">Best value</span>
+        <div class="range">BOTH TRACKS</div>
+        <h3>Speaking + Writing</h3>
+        <div class="desc">1 month: both tracks, 16 sessions over 4 weeks.</div>
+        <div class="price"><span class="was"><s>7,000 EGP</s> <s>$140</s></span><span class="egp">6,000 EGP</span><span class="usd">$120</span><span class="save-note">Save 1,000 EGP</span></div>
+      </div>
+      <div class="course">
+        <div class="range">IELTS PREPARATION · GROUP</div>
+        <h3>IELTS Preparation Course</h3>
+        <div class="desc">20 sessions over 5 weeks in a small group, all four exam skills.</div>
+        <div class="price"><span class="egp">5,000 EGP</span><span class="usd">$100</span></div>
+      </div>
+      <div class="course">
+        <div class="range">IELTS PREPARATION · PRIVATE</div>
+        <h3>IELTS Preparation Course</h3>
+        <div class="desc">IELTS Preparation taught one-to-one with a teacher.</div>
+        <div class="price"><span class="egp">6,000 EGP</span><span class="usd">$120</span></div>
       </div>
       <div class="course">
         <div class="range">FREE</div>
         <h3>Placement test session</h3>
         <div class="desc">Placement test plus a one-to-one session with a teacher, and your personal plan.</div>
-        <div class="price">$0</div>
+        <div class="price"><span class="egp">Free</span><span class="usd">0 EGP · $0</span></div>
         <a href="#register" class="btn btn-primary offer-cta">Book it now</a>
       </div>
     </div>
@@ -744,10 +760,12 @@
             <option>Writing track</option>
             <option>Both tracks (Speaking + Writing)</option>
             <option>IELTS Preparation Course</option>
+            <option>IELTS Preparation Course (private)</option>
             <option>Last-Minute Booster Camp (Nov 15–20)</option>
           </select>
         </div>
-        <div class="inline-hint booster" id="boosterHint">⚡ The Booster Camp runs <strong>Nov 15–20</strong> (3 days Speaking + 3 days Writing, 2 hrs each) for <strong>$20</strong>. We’ll confirm your seat quickly.</div>
+        <div class="inline-hint booster" id="boosterHint">⚡ The Booster Camp runs <strong>Nov 15–20</strong> (3 days Speaking + 3 days Writing, 2 hrs each) for <strong>1,000 EGP</strong> ($20). We’ll confirm your seat quickly.</div>
+        <div class="price-hint" id="priceHint"></div>
         <div class="field" style="margin-top:18px;">
           <label>Preferred time slot <span style="font-weight:500;color:var(--muted);">(Cairo time)</span></label>
           <div class="radio-row">
@@ -949,8 +967,28 @@
   const ladiesNo = document.getElementById('ladiesNo');
   const ladiesHint = document.getElementById('ladiesHint');
 
+  // Fixed prices shown under the course choice (Egyptian pounds first, then US dollars)
+  const priceHint = document.getElementById('priceHint');
+  const COURSE_PRICES = {
+    'Speaking track': {egp:'3,500 EGP', usd:'$70'},
+    'Writing track': {egp:'3,500 EGP', usd:'$70'},
+    'Both tracks (Speaking + Writing)': {egp:'6,000 EGP', usd:'$120', was:'<s>7,000 EGP</s> <s>$140</s>', save:'Save 1,000 EGP'},
+    'IELTS Preparation Course': {egp:'5,000 EGP', usd:'$100', note:'group'},
+    'IELTS Preparation Course (private)': {egp:'6,000 EGP', usd:'$120', note:'private'}
+  };
+  function updatePrice(){
+    const p = COURSE_PRICES[courseSelect.value];
+    priceHint.classList.toggle('show', !!p);
+    if(!p){ priceHint.innerHTML = ''; return; }
+    priceHint.innerHTML = 'Price' + (p.note ? ' (' + p.note + ')' : '') + ':<div class="price">' +
+      (p.was ? '<span class="was">' + p.was + '</span>' : '') +
+      '<span class="egp">' + p.egp + '</span><span class="usd">' + p.usd + '</span>' +
+      (p.save ? '<span class="save-note">' + p.save + '</span>' : '') + '</div>';
+  }
+
   function updateHints(){
     boosterHint.classList.toggle('show', courseSelect.value.startsWith('Last-Minute Booster'));
+    updatePrice();
     ladiesHint.classList.toggle('show', ladiesYes.checked);
   }
   courseSelect.addEventListener('change', updateHints);
