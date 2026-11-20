@@ -7,7 +7,7 @@
 <meta name="description" content="For high school and university graduates chasing a scholarship or a better job. A free placement test session, a personal plan for your weak skills, then IELTS Preparation.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --ink: #16233F;
@@ -86,6 +86,22 @@
     white-space:nowrap;
   }
   .nav-cta:hover{background:var(--ink-2);}
+  .lang-btn{
+    font-family:'IBM Plex Sans Arabic', var(--font-body);font-weight:600;font-size:14px;line-height:1;
+    background:transparent;color:var(--ink);border:1px solid var(--ink);border-radius:var(--radius);
+    padding:9px 14px;cursor:pointer;white-space:nowrap;
+  }
+  .lang-btn:hover{background:var(--ink);color:var(--paper);}
+  /* ---------- ARABIC (right to left) ---------- */
+  html[lang="ar"]{--font-display:'IBM Plex Sans Arabic', sans-serif;--font-body:'IBM Plex Sans Arabic', sans-serif;--font-mono:'IBM Plex Sans Arabic', sans-serif;}
+  html[lang="ar"] *{letter-spacing:0 !important;}
+  html[lang="ar"] h1, html[lang="ar"] h2, html[lang="ar"] h3{font-weight:700;}
+  html[lang="ar"] .hero h1{line-height:1.3;}
+  html[lang="ar"] .hero h1 em{font-style:normal;}
+  html[lang="ar"] .eyebrow{font-size:13.5px;}
+  html[lang="ar"] .lang-btn{font-family:'IBM Plex Sans', sans-serif;}
+  html[dir="rtl"] .card-bg-track{direction:ltr;}
+  html[dir="rtl"] input[type="email"], html[dir="rtl"] input[type="tel"], html[dir="rtl"] input[type="password"]{direction:ltr;text-align:right;}
   .burger{display:none;background:none;border:none;cursor:pointer;padding:6px;}
   .burger span{display:block;width:22px;height:2px;background:var(--ink);margin:5px 0;}
 
@@ -206,8 +222,6 @@
   .price .usd{display:block;font-family:var(--font-mono);font-size:13.5px;font-weight:500;color:var(--muted);margin-top:2px;}
   .price .was{display:block;font-family:var(--font-mono);font-size:13px;font-weight:500;color:var(--muted);margin-bottom:2px;}
   .price .was s{text-decoration-thickness:1.5px;}
-  .price-options{display:flex;gap:28px;flex-wrap:wrap;}
-  .price-options .opt-label{display:block;font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--teal);margin-bottom:4px;}
   .price-hint{display:none;margin-top:10px;padding:10px 12px;border:1px solid var(--line);border-radius:var(--radius);background:var(--white);font-size:13px;color:var(--muted);}
   .price-hint.show{display:block;}
   .price-hint .price{margin:4px 0 0;padding:0;border:0;}
@@ -231,7 +245,7 @@
   .course.offer.launch{border-color:var(--teal);box-shadow:0 0 0 1px var(--teal);}
   .course.offer.launch .range{color:var(--teal);}
   .course.offer.launch .course-badge{background:var(--teal);color:var(--white);}
-  .offer-list{margin:0;padding-left:18px;font-size:14px;color:var(--muted);}
+  .offer-list{margin:0;padding-inline-start:18px;font-size:14px;color:var(--muted);}
   .offer-list li{margin-bottom:4px;}
   .offer-cta{align-self:flex-start;margin-top:4px;}
   .fine-print{font-size:13px;color:var(--muted);margin-top:16px;}
@@ -247,7 +261,7 @@
 
   /* ---------- REGISTER ---------- */
   .register-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:50px;}
-  .register-steps{margin:22px 0 0;padding-left:20px;color:var(--muted);font-size:15px;}
+  .register-steps{margin:22px 0 0;padding-inline-start:20px;color:var(--muted);font-size:15px;}
   .register-steps li{margin-bottom:8px;}
   .wa-btn{display:inline-flex;align-items:center;gap:8px;margin-top:22px;background:#1F8F5F;color:#fff;}
   .wa-btn:hover{background:#18764E;}
@@ -364,6 +378,7 @@
   @media (max-width:480px){
     .wrap{padding:0 18px;}
     .logo{font-size:16px;gap:8px;}
+    .lang-btn{padding:8px 10px;font-size:13px;}
     .nav{padding:14px 18px;}
     .hero{padding:48px 0 24px;}
     section{padding:56px 0;}
@@ -388,17 +403,18 @@
     <div class="logo"><span class="logo-mark">IF</span> IELTS Foundation Camp <span class="ribbon" title="Breast Cancer Awareness Month"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c-2.2 0-4 1.8-4 4 0 1.6.6 3.1 1.6 4.6L5 19l2.6 1.5 4.4-7.1 4.4 7.1L19 19l-4.6-8.4C15.4 9.1 16 7.6 16 6c0-2.2-1.8-4-4-4zm0 2c1.1 0 2 .9 2 2 0 1-.4 2.1-1.1 3.2L12 10.6l-.9-1.4C10.4 8.1 10 7 10 6c0-1.1.9-2 2-2z" fill="currentColor"/></svg></span></div>
     <nav>
       <ul id="navList">
-        <li><a href="#testimonials">Why us</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#program">How it works</a></li>
-        <li><a href="#offers">Offers</a></li>
-        <li><a href="#pricing">Pricing</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li><a href="https://ifcportal.vercel.app" rel="noopener">Student Login</a></li>
+        <li><a data-i18n="t1" href="#testimonials">Why us</a></li>
+        <li><a data-i18n="t2" href="#about">About</a></li>
+        <li><a data-i18n="t3" href="#program">How it works</a></li>
+        <li><a data-i18n="t4" href="#offers">Offers</a></li>
+        <li><a data-i18n="t5" href="#pricing">Pricing</a></li>
+        <li><a data-i18n="t6" href="#contact">Contact</a></li>
+        <li><a data-i18n="t7" href="https://ifcportal.vercel.app" rel="noopener">Student Login</a></li>
       </ul>
     </nav>
     <div style="display:flex;align-items:center;gap:10px;">
-      <a href="#register" class="nav-cta">Book free test</a>
+      <a data-i18n="t8" href="#register" class="nav-cta">Book free test</a>
+      <button type="button" class="lang-btn" id="langBtn" lang="ar" aria-label="عرض الموقع بالعربية">العربية</button>
       <button class="burger" id="burger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
     </div>
   </div>
@@ -407,12 +423,12 @@
 <section class="hero">
   <div class="wrap hero-grid">
     <div>
-      <div class="eyebrow">For scholarship seekers &amp; career builders</div>
-      <h1>Find your weak skills.<br>Fix them. Then <em>beat IELTS.</em></h1>
-      <p class="lead">For high school and university graduates chasing a scholarship or a better job. A <span class="highlight-text">free placement test session</span> shows your real level, then we build a personal plan around exactly what’s holding your score back.</p>
+      <div data-i18n="t9" class="eyebrow">For scholarship seekers &amp; career builders</div>
+      <h1 data-i18n="t10">Find your weak skills.<br>Fix them. Then <em>beat IELTS.</em></h1>
+      <p data-i18n="t11" class="lead">For high school and university graduates chasing a scholarship or a better job. A <span class="highlight-text">free placement test session</span> shows your real level, then we build a personal plan around exactly what’s holding your score back.</p>
       <div class="hero-ctas">
-        <a href="#register" class="btn btn-primary">Book your free placement test</a>
-        <a href="#program" class="btn btn-ghost">See how it works</a>
+        <a data-i18n="t12" href="#register" class="btn btn-primary">Book your free placement test</a>
+        <a data-i18n="t13" href="#program" class="btn btn-ghost">See how it works</a>
       </div>
     </div>
 
@@ -430,15 +446,15 @@
       </div>
       <div class="card-overlay"></div>
       <div class="card-content">
-      <div class="eyebrow">Your personal path to IELTS</div>
+      <div data-i18n="t14" class="eyebrow">Your personal path to IELTS</div>
       <div class="ladder-title fade-swap" id="stepperTitle">Step 1 — Free Consultation</div>
       <div class="ladder" id="stepper">
-        <div class="rung active" data-step="1"><span class="num">01</span><span class="desc">Free Consultation</span></div>
-        <div class="rung" data-step="2"><span class="num">02</span><span class="desc">Your Personal Plan</span></div>
-        <div class="rung" data-step="3"><span class="num">03</span><span class="desc">IELTS Preparation</span></div>
+        <div class="rung active" data-step="1"><span class="num">01</span><span data-i18n="t15" class="desc">Free Consultation</span></div>
+        <div class="rung" data-step="2"><span class="num">02</span><span data-i18n="t16" class="desc">Your Personal Plan</span></div>
+        <div class="rung" data-step="3"><span class="num">03</span><span data-i18n="t17" class="desc">IELTS Preparation</span></div>
       </div>
       <div class="ladder-slider-row">
-        <label>WHAT YOU GET</label>
+        <label data-i18n="t18">WHAT YOU GET</label>
         <div class="recommend fade-swap" id="stepperDetail">Placement test + one-to-one session · find your real level · free</div>
       </div>
       </div>
@@ -448,41 +464,41 @@
 
 <section class="countdown-section">
   <div class="wrap countdown-inner">
-    <div class="eyebrow">Term 2 starts</div>
-    <div class="countdown-note" id="countdownNote">Term 1 registration is closed — Term 2 is now open.</div>
-    <div class="countdown-title">Sunday, November 15, 2026</div>
+    <div data-i18n="t19" class="eyebrow">Term 2 starts</div>
+    <div data-i18n="t20" class="countdown-note" id="countdownNote">Term 1 registration is closed — Term 2 is now open.</div>
+    <div data-i18n="t21" class="countdown-title">Sunday, November 15, 2026</div>
     <div class="countdown-boxes" id="countdownBoxes">
-      <div class="countdown-box"><div class="num" id="cdDays">00</div><div class="label">Days</div></div>
-      <div class="countdown-box"><div class="num" id="cdHours">00</div><div class="label">Hours</div></div>
-      <div class="countdown-box"><div class="num" id="cdMinutes">00</div><div class="label">Minutes</div></div>
-      <div class="countdown-box"><div class="num" id="cdSeconds">00</div><div class="label">Seconds</div></div>
+      <div class="countdown-box"><div class="num" id="cdDays">00</div><div data-i18n="t22" class="label">Days</div></div>
+      <div class="countdown-box"><div class="num" id="cdHours">00</div><div data-i18n="t23" class="label">Hours</div></div>
+      <div class="countdown-box"><div class="num" id="cdMinutes">00</div><div data-i18n="t24" class="label">Minutes</div></div>
+      <div class="countdown-box"><div class="num" id="cdSeconds">00</div><div data-i18n="t25" class="label">Seconds</div></div>
     </div>
-    <a href="#register" class="btn btn-primary countdown-cta">Book your free placement test</a>
-    <div class="countdown-extra">Exam coming up soon? The next <a href="#offers">Last-Minute Booster Camp</a> runs Nov 15–20.</div>
+    <a data-i18n="t12" href="#register" class="btn btn-primary countdown-cta">Book your free placement test</a>
+    <div data-i18n="t26" class="countdown-extra">Exam coming up soon? The next <a href="#offers">Last-Minute Booster Camp</a> runs Nov 15–20.</div>
   </div>
 </section>
 
 <section id="testimonials">
   <div class="wrap">
     <div class="section-head">
-      <div class="eyebrow">Why us</div>
-      <h2>Why students choose IELTS Foundation Camp</h2>
+      <div data-i18n="t1" class="eyebrow">Why us</div>
+      <h2 data-i18n="t27">Why students choose IELTS Foundation Camp</h2>
     </div>
     <div class="testi-grid">
       <div class="testi">
         <div class="why-icon">🎯</div>
-        <h3 class="why-title">We diagnose before we teach</h3>
-        <p class="why-text">Your free placement test session shows exactly which skills are holding your band back, so you don’t pay for lessons you don’t need.</p>
+        <h3 data-i18n="t28" class="why-title">We diagnose before we teach</h3>
+        <p data-i18n="t29" class="why-text">Your free placement test session shows exactly which skills are holding your band back, so you don’t pay for lessons you don’t need.</p>
       </div>
       <div class="testi">
         <div class="why-icon">👥</div>
-        <h3 class="why-title">Small groups, real feedback</h3>
-        <p class="why-text">Classes are capped at 6–10 students, so your speaking and writing get marked, personal feedback in every session.</p>
+        <h3 data-i18n="t30" class="why-title">Small groups, real feedback</h3>
+        <p data-i18n="t31" class="why-text">Classes are capped at 6–10 students, so your speaking and writing get marked, personal feedback in every session.</p>
       </div>
       <div class="testi">
         <div class="why-icon">💻</div>
-        <h3 class="why-title">Your own student portal</h3>
-        <p class="why-text">Live classes on Zoom, plus your lessons, homework, teacher feedback and progress reports in one place, wherever you are in the world.</p>
+        <h3 data-i18n="t32" class="why-title">Your own student portal</h3>
+        <p data-i18n="t33" class="why-text">Live classes on Zoom, plus your lessons, homework, teacher feedback and progress reports in one place, wherever you are in the world.</p>
       </div>
     </div>
   </div>
@@ -491,16 +507,16 @@
 <section id="about" class="alt">
   <div class="wrap about-grid">
     <div>
-      <div class="eyebrow">About the camp</div>
-      <h2><span style="color:#D64545;">WHY</span> start with a placement test?</h2>
+      <div data-i18n="t34" class="eyebrow">About the camp</div>
+      <h2 data-i18n="t35"><span style="color:#D64545;">WHY</span> start with a placement test?</h2>
     </div>
     <div>
-      <p>Most IELTS courses put everyone through the same program, whether they need it or not. But in our experience, what usually holds a student’s band score back is one or two skills, most often speaking and writing, while the rest is already good enough.</p>
-      <p>So we start by finding out. Your free placement test session shows your real level in each skill. Then we recommend a personal plan: a focused Speaking or Writing track (or both) to fix what’s holding you back, followed by IELTS Preparation. If your English is already strong, you go straight to IELTS Preparation, with no time or money spent on what you don’t need. Classes stay small (6–10 students), so every learner gets real feedback.</p>
+      <p data-i18n="t36">Most IELTS courses put everyone through the same program, whether they need it or not. But in our experience, what usually holds a student’s band score back is one or two skills, most often speaking and writing, while the rest is already good enough.</p>
+      <p data-i18n="t37">So we start by finding out. Your free placement test session shows your real level in each skill. Then we recommend a personal plan: a focused Speaking or Writing track (or both) to fix what’s holding you back, followed by IELTS Preparation. If your English is already strong, you go straight to IELTS Preparation, with no time or money spent on what you don’t need. Classes stay small (6–10 students), so every learner gets real feedback.</p>
       <div class="stat-row">
-        <div class="stat"><div class="num">Free</div><div class="label">placement test session</div></div>
-        <div class="stat"><div class="num">2</div><div class="label">focus tracks: Speaking &amp; Writing</div></div>
-        <div class="stat"><div class="num">6</div><div class="label">weeks of IELTS Preparation</div></div>
+        <div class="stat"><div data-i18n="t38" class="num">Free</div><div data-i18n="t39" class="label">placement test session</div></div>
+        <div class="stat"><div class="num">2</div><div data-i18n="t40" class="label">focus tracks: Speaking &amp; Writing</div></div>
+        <div class="stat"><div class="num">6</div><div data-i18n="t41" class="label">weeks of IELTS Preparation</div></div>
       </div>
     </div>
   </div>
@@ -509,81 +525,74 @@
 <section id="program">
   <div class="wrap">
     <div class="section-head">
-      <div class="eyebrow">How it works</div>
-      <h2>Three steps to the score you need</h2>
-      <p>Built for students and graduates applying for scholarships or better jobs, where the IELTS band can decide everything.</p>
+      <div data-i18n="t3" class="eyebrow">How it works</div>
+      <h2 data-i18n="t42">Three steps to the score you need</h2>
+      <p data-i18n="t43">Built for students and graduates applying for scholarships or better jobs, where the IELTS band can decide everything.</p>
     </div>
     <div class="courses">
       <div class="course">
         <div class="step-num">01</div>
-        <h3>Free placement test session</h3>
-        <div class="desc">Take a placement test, then meet one-to-one with a teacher. You’ll learn your real level, your strengths, and exactly which skills are holding your score back.</div>
+        <h3 data-i18n="t44">Free placement test session</h3>
+        <div data-i18n="t45" class="desc">Take a placement test, then meet one-to-one with a teacher. You’ll learn your real level, your strengths, and exactly which skills are holding your score back.</div>
       </div>
       <div class="course">
         <div class="step-num">02</div>
-        <h3>Your personal plan</h3>
-        <div class="desc">We recommend what you actually need: the Speaking track, the Writing track, or both. Vocabulary and grammar are built into every session.</div>
+        <h3 data-i18n="t46">Your personal plan</h3>
+        <div data-i18n="t47" class="desc">We recommend what you actually need: the Speaking track, the Writing track, or both. Vocabulary and grammar are built into every session.</div>
       </div>
       <div class="course">
         <div class="step-num">03</div>
-        <h3>IELTS Preparation</h3>
-        <div class="desc">Six weeks of exam preparation (24 sessions) across all four skills, including reading and listening strategies, to reach the band your scholarship or job requires.</div>
+        <h3 data-i18n="t17">IELTS Preparation</h3>
+        <div data-i18n="t48" class="desc">Six weeks of exam preparation (24 sessions) across all four skills, including reading and listening strategies, to reach the band your scholarship or job requires.</div>
       </div>
     </div>
 
     <div class="section-head" style="margin-top:56px;margin-bottom:24px;">
-      <div class="eyebrow">Step 2: the focus tracks</div>
-      <h2 style="font-size:26px;">Fix the skills that hold you back</h2>
-      <p>Each track runs for 4 weeks in small groups. Your free session tells you which one you need.</p>
+      <div data-i18n="t49" class="eyebrow">Step 2: the focus tracks</div>
+      <h2 data-i18n="t50" style="font-size:26px;">Fix the skills that hold you back</h2>
+      <p data-i18n="t51">Each track runs for 4 weeks in small groups. Your free session tells you which one you need.</p>
     </div>
     <div class="courses">
       <div class="course">
-        <span class="course-badge">Speaking</span>
-        <div class="range">SPEAKING TRACK</div>
-        <h3>Speak fluently and confidently</h3>
-        <div class="meta">4 weeks · 2 sessions a week · 2.5 hrs/session</div>
-        <div class="desc">Fluency, pronunciation, and building full answers, with the topic vocabulary and grammar to express your ideas clearly.</div>
-        <div class="price"><span class="egp">3,500 EGP</span><span class="usd">$70</span></div>
+        <span data-i18n="t52" class="course-badge">Speaking</span>
+        <div data-i18n="t55" class="range">SPEAKING TRACK</div>
+        <h3 data-i18n="t57">Speak fluently and confidently</h3>
+        <div data-i18n="t58" class="meta">4 weeks · 2 sessions a week · 2.5 hrs/session</div>
+        <div data-i18n="t59" class="desc">Fluency, pronunciation, and building full answers, with the topic vocabulary and grammar to express your ideas clearly.</div>
       </div>
       <div class="course">
-        <span class="course-badge">Writing</span>
-        <div class="range">WRITING TRACK</div>
-        <h3>Write clearly and accurately</h3>
-        <div class="meta">4 weeks · 2 sessions a week · 2.5 hrs/session</div>
-        <div class="desc">Paragraph and essay structure, accuracy, and the vocabulary to develop your ideas, with marked feedback on your writing.</div>
-        <div class="price"><span class="egp">3,500 EGP</span><span class="usd">$70</span></div>
+        <span data-i18n="t53" class="course-badge">Writing</span>
+        <div data-i18n="t56" class="range">WRITING TRACK</div>
+        <h3 data-i18n="t60">Write clearly and accurately</h3>
+        <div data-i18n="t58" class="meta">4 weeks · 2 sessions a week · 2.5 hrs/session</div>
+        <div data-i18n="t61" class="desc">Paragraph and essay structure, accuracy, and the vocabulary to develop your ideas, with marked feedback on your writing.</div>
       </div>
       <div class="course highlight">
-        <span class="course-badge">Both</span>
-        <div class="range">SPEAKING + WRITING</div>
-        <h3>Both tracks together</h3>
-        <div class="meta">4 weeks · 4 sessions a week (Sun–Wed) · 2.5 hrs/session</div>
-        <div class="desc">For students who need work on both productive skills: one session a day, Sunday to Wednesday.</div>
-        <div class="price"><span class="was"><s>7,000 EGP</s> <s>$140</s></span><span class="egp">6,000 EGP</span><span class="usd">$120</span><span class="save-note">Save 1,000 EGP</span></div>
+        <span data-i18n="t54" class="course-badge">Both</span>
+        <div data-i18n="t62" class="range">SPEAKING + WRITING</div>
+        <h3 data-i18n="t63">Both tracks together</h3>
+        <div data-i18n="t64" class="meta">4 weeks · 4 sessions a week (Sun–Wed) · 2.5 hrs/session</div>
+        <div data-i18n="t65" class="desc">For students who need work on both productive skills: one session a day, Sunday to Wednesday.</div>
       </div>
     </div>
 
     <div class="section-head" style="margin-top:56px;margin-bottom:24px;">
-      <div class="eyebrow">Step 3</div>
-      <h2 style="font-size:26px;">Already confident? Go straight to IELTS Preparation</h2>
+      <div data-i18n="t66" class="eyebrow">Step 3</div>
+      <h2 data-i18n="t67" style="font-size:26px;">Already confident? Go straight to IELTS Preparation</h2>
     </div>
     <div class="courses" style="grid-template-columns:1fr;max-width:460px;margin:0 auto;">
       <div class="course">
-        <div class="range">IELTS PREPARATION COURSE</div>
-        <h3>Six weeks of exam preparation</h3>
-        <div class="meta">6 weeks · 24 sessions · 4 a week (Sun–Wed) · 3 hrs/session</div>
-        <div class="desc">All four exam skills, including reading and listening strategies, writing and speaking tasks, and practice tests. If your placement test shows you’re ready, you start here.</div>
-        <div class="price price-options">
-          <div><span class="opt-label">Group</span><span class="egp">5,000 EGP</span><span class="usd">$100</span></div>
-          <div><span class="opt-label">Private</span><span class="egp">6,000 EGP</span><span class="usd">$120</span></div>
-        </div>
+        <div data-i18n="t68" class="range">IELTS PREPARATION COURSE</div>
+        <h3 data-i18n="t69">Six weeks of exam preparation</h3>
+        <div data-i18n="t70" class="meta">6 weeks · 24 sessions · 4 a week (Sun–Wed) · 3 hrs/session</div>
+        <div data-i18n="t71" class="desc">All four exam skills, including reading and listening strategies, writing and speaking tasks, and practice tests. If your placement test shows you’re ready, you start here.</div>
       </div>
     </div>
 
     <!-- ---------- OFFERS ---------- -->
     <div class="section-head" id="offers" style="margin-top:56px;margin-bottom:24px;">
-      <div class="eyebrow">Special offers</div>
-      <h2 style="font-size:26px;">Offers and short courses</h2>
+      <div data-i18n="t72" class="eyebrow">Special offers</div>
+      <h2 data-i18n="t73" style="font-size:26px;">Offers and short courses</h2>
     </div>
     <div class="courses offers-grid">
       <div class="course offer launch october-only">
@@ -603,75 +612,75 @@
           To support Breast Cancer Awareness Month, women who book their free placement test session in October get 20% off — and a gentle reminder to book their own check-up. 💗
           <ul class="offer-list" style="margin-top:10px;">
             <li>Speaking and Writing tracks</li>
-            <li>IELTS Preparation Course</li>
+            <li data-i18n="t100">IELTS Preparation Course</li>
             <li>All packages</li>
           </ul>
         </div>
         <a href="#register" class="btn btn-ghost offer-cta" data-ladies="yes">Claim the Ladies’ Offer</a>
       </div>
       <div class="course offer">
-        <span class="course-badge">Next: Nov 15</span>
-        <div class="range">LAST-MINUTE BOOSTER CAMP</div>
-        <h3>Exam soon? One intensive week.</h3>
-        <div class="meta">Nov 15–20 · 6 sessions · 2 hrs/session</div>
+        <span data-i18n="t74" class="course-badge">Next: Nov 15</span>
+        <div data-i18n="t75" class="range">LAST-MINUTE BOOSTER CAMP</div>
+        <h3 data-i18n="t76">Exam soon? One intensive week.</h3>
+        <div data-i18n="t77" class="meta">Nov 15–20 · 6 sessions · 2 hrs/session</div>
         <div class="desc">
-          For self-studying students with an IELTS test coming up who need focused practice right now.
+          <span data-i18n="t78">For self-studying students with an IELTS test coming up who need focused practice right now.</span>
           <ul class="offer-list" style="margin-top:10px;">
-            <li>3 days of Speaking practice (2 hrs each)</li>
-            <li>3 days of Writing practice (2 hrs each)</li>
+            <li data-i18n="t79">3 days of Speaking practice (2 hrs each)</li>
+            <li data-i18n="t80">3 days of Writing practice (2 hrs each)</li>
           </ul>
         </div>
-        <div class="price"><span class="egp">1,000 EGP</span><span class="usd">$20</span></div>
-        <a href="#register" class="btn btn-primary offer-cta" data-select="Last-Minute Booster Camp (Nov 15–20)">Book the November Booster</a>
+        <div class="price"><span data-i18n="t86" class="egp">1,000 EGP</span><span class="usd">$20</span></div>
+        <a data-i18n="t81" href="#register" class="btn btn-primary offer-cta" data-select="Last-Minute Booster Camp (Nov 15–20)">Book the November Booster</a>
       </div>
     </div>
     <p class="fine-print october-only">Offers don’t combine: you get the biggest discount you qualify for.</p>
 
     <div class="section-head" id="pricing" style="margin-top:56px;margin-bottom:24px;">
-      <div class="eyebrow">Pricing</div>
-      <h2 style="font-size:26px;">Pay only for what you need</h2>
-      <p>Your free placement test session tells you which plan fits. Ask us about paying in two installments.</p>
+      <div data-i18n="t5" class="eyebrow">Pricing</div>
+      <h2 data-i18n="t89" style="font-size:26px;">Pay only for what you need</h2>
+      <p data-i18n="t90">Your free placement test session tells you which plan fits. Ask us about paying in two installments.</p>
       <p class="ladies-line october-only">🎀 Women who book their free placement test session in October get <strong>20% off</strong> instead. We’ll confirm your exact price at your free session.</p>
-      <p class="discount-note grad-offer">🎓 2026 high school graduate? Get <strong>26% off</strong> — just answer the question in the form below.</p>
+      <p data-i18n="t91" class="discount-note grad-offer">🎓 2026 high school graduate? Get <strong>26% off</strong> — just answer the question in the form below.</p>
     </div>
     <div class="courses pricing-grid">
       <div class="course">
-        <div class="range">SPEAKING TRACK</div>
-        <h3>Speaking Round</h3>
-        <div class="desc">1 month: 8 sessions over 4 weeks.</div>
-        <div class="price"><span class="egp">3,500 EGP</span><span class="usd">$70</span></div>
+        <div data-i18n="t55" class="range">SPEAKING TRACK</div>
+        <h3 data-i18n="t92">Speaking Round</h3>
+        <div data-i18n="t94" class="desc">1 month: 8 sessions over 4 weeks.</div>
+        <div class="price"><span data-i18n="t82" class="egp">3,500 EGP</span><span class="usd">$70</span></div>
       </div>
       <div class="course">
-        <div class="range">WRITING TRACK</div>
-        <h3>Writing Round</h3>
-        <div class="desc">1 month: 8 sessions over 4 weeks.</div>
-        <div class="price"><span class="egp">3,500 EGP</span><span class="usd">$70</span></div>
+        <div data-i18n="t56" class="range">WRITING TRACK</div>
+        <h3 data-i18n="t93">Writing Round</h3>
+        <div data-i18n="t94" class="desc">1 month: 8 sessions over 4 weeks.</div>
+        <div class="price"><span data-i18n="t82" class="egp">3,500 EGP</span><span class="usd">$70</span></div>
       </div>
       <div class="course highlight">
-        <span class="course-badge">Best value</span>
-        <div class="range">BOTH TRACKS</div>
-        <h3>Speaking + Writing</h3>
-        <div class="desc">1 month: both tracks, 16 sessions over 4 weeks.</div>
-        <div class="price"><span class="was"><s>7,000 EGP</s> <s>$140</s></span><span class="egp">6,000 EGP</span><span class="usd">$120</span><span class="save-note">Save 1,000 EGP</span></div>
+        <span data-i18n="t95" class="course-badge">Best value</span>
+        <div data-i18n="t96" class="range">BOTH TRACKS</div>
+        <h3 data-i18n="t97">Speaking + Writing</h3>
+        <div data-i18n="t98" class="desc">1 month: both tracks, 16 sessions over 4 weeks.</div>
+        <div class="price"><span class="was"><s data-i18n="t85">7,000 EGP</s> <s>$140</s></span><span data-i18n="t84" class="egp">6,000 EGP</span><span class="usd">$120</span><span data-i18n="t87" class="save-note">Save 1,000 EGP</span></div>
       </div>
       <div class="course">
-        <div class="range">IELTS PREPARATION · GROUP</div>
-        <h3>IELTS Preparation Course</h3>
-        <div class="desc">24 sessions over 6 weeks in a small group, all four exam skills.</div>
-        <div class="price"><span class="egp">5,000 EGP</span><span class="usd">$100</span></div>
+        <div data-i18n="t99" class="range">IELTS PREPARATION · GROUP</div>
+        <h3 data-i18n="t100">IELTS Preparation Course</h3>
+        <div data-i18n="t101" class="desc">24 sessions over 6 weeks in a small group, all four exam skills.</div>
+        <div class="price"><span data-i18n="t83" class="egp">5,000 EGP</span><span class="usd">$100</span></div>
       </div>
       <div class="course">
-        <div class="range">IELTS PREPARATION · PRIVATE</div>
-        <h3>IELTS Preparation Course</h3>
-        <div class="desc">IELTS Preparation taught one-to-one with a teacher.</div>
-        <div class="price"><span class="egp">6,000 EGP</span><span class="usd">$120</span></div>
+        <div data-i18n="t102" class="range">IELTS PREPARATION · PRIVATE</div>
+        <h3 data-i18n="t100">IELTS Preparation Course</h3>
+        <div data-i18n="t103" class="desc">IELTS Preparation taught one-to-one with a teacher.</div>
+        <div class="price"><span data-i18n="t84" class="egp">6,000 EGP</span><span class="usd">$120</span></div>
       </div>
       <div class="course">
-        <div class="range">FREE</div>
-        <h3>Placement test session</h3>
-        <div class="desc">Placement test plus a one-to-one session with a teacher, and your personal plan.</div>
-        <div class="price"><span class="egp">Free</span><span class="usd">0 EGP · $0</span></div>
-        <a href="#register" class="btn btn-primary offer-cta">Book it now</a>
+        <div data-i18n="t104" class="range">FREE</div>
+        <h3 data-i18n="t105">Placement test session</h3>
+        <div data-i18n="t106" class="desc">Placement test plus a one-to-one session with a teacher, and your personal plan.</div>
+        <div class="price"><span data-i18n="t38" class="egp">Free</span><span data-i18n="t88" class="usd">0 EGP · $0</span></div>
+        <a data-i18n="t107" href="#register" class="btn btn-primary offer-cta">Book it now</a>
       </div>
     </div>
   </div>
@@ -682,128 +691,128 @@
 <section id="register" class="alt">
   <div class="wrap register-grid">
     <div>
-      <div class="eyebrow">Free placement test</div>
-      <h2>Book your free placement test session</h2>
-      <p style="color:var(--muted);margin-top:12px;">Tell us a little about you and your goal. We’ll contact you within one business day to arrange your free session.</p>
+      <div data-i18n="t108" class="eyebrow">Free placement test</div>
+      <h2 data-i18n="t109">Book your free placement test session</h2>
+      <p data-i18n="t110" style="color:var(--muted);margin-top:12px;">Tell us a little about you and your goal. We’ll contact you within one business day to arrange your free session.</p>
       <ol class="register-steps">
-        <li>You take a short placement test.</li>
-        <li>You meet one-to-one with a teacher to go through your results.</li>
-        <li>We recommend your personal plan. It’s up to you whether to join.</li>
+        <li data-i18n="t111">You take a short placement test.</li>
+        <li data-i18n="t112">You meet one-to-one with a teacher to go through your results.</li>
+        <li data-i18n="t113">We recommend your personal plan. It’s up to you whether to join.</li>
       </ol>
       <a class="btn wa-btn" href="https://wa.me/201557025096?text=Hi!%20I%27d%20like%20to%20book%20my%20free%20placement%20test%20session." target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3.5a8.4 8.4 0 0 0-7.2 12.7L3.5 20.5l4.4-1.25A8.4 8.4 0 1 0 12 3.5z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
-        Prefer WhatsApp? Message us
+        <span data-i18n="t114">Prefer WhatsApp? Message us</span>
       </a>
     </div>
     <div class="form-card">
       <form id="regForm" name="registration" method="POST" action="https://formspree.io/f/mgograzy">
         <div class="field-row">
           <div class="field">
-            <label for="fname">Full name</label>
+            <label data-i18n="t115" for="fname">Full name</label>
             <input type="text" id="fname" name="full_name" required>
           </div>
           <div class="field">
-            <label for="email">Email</label>
+            <label data-i18n="t116" for="email">Email</label>
             <input type="email" id="email" name="email" required autocomplete="email">
           </div>
         </div>
         <div class="field-row">
           <div class="field">
-            <label for="password">Choose a password (at least 8 characters)</label>
+            <label data-i18n="t117" for="password">Choose a password (at least 8 characters)</label>
             <input type="password" id="password" name="password" required minlength="8" autocomplete="new-password">
           </div>
           <div class="field">
-            <label for="password2">Type the password again</label>
+            <label data-i18n="t118" for="password2">Type the password again</label>
             <input type="password" id="password2" name="password2" required minlength="8" autocomplete="new-password">
           </div>
         </div>
-        <div class="form-note" style="margin:-6px 0 14px;">This creates your free student portal account. You use it to log in after we approve your registration.</div>
+        <div data-i18n="t119" class="form-note" style="margin:-6px 0 14px;">This creates your free student portal account. You use it to log in after we approve your registration.</div>
         <!-- Honeypot: hidden from people, bots fill it in -->
-        <div aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">
+        <div aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);opacity:0;pointer-events:none;">
           <label for="company_site">Leave this field empty</label>
           <input type="text" id="company_site" name="company_site" tabindex="-1" autocomplete="off">
         </div>
         <div class="field-row">
           <div class="field">
-            <label for="phone">WhatsApp number (with country code)</label>
+            <label data-i18n="t120" for="phone">WhatsApp number (with country code)</label>
             <input type="tel" id="phone" name="whatsapp" required placeholder="e.g. +44 7700 900123">
           </div>
           <div class="field">
-            <label for="goal">What’s your goal?</label>
+            <label data-i18n="t121" for="goal">What’s your goal?</label>
             <select id="goal" name="goal">
-              <option>A scholarship abroad</option>
-              <option>A better job</option>
-              <option>University admission</option>
-              <option>Something else</option>
+              <option data-i18n="t122" value="A scholarship abroad">A scholarship abroad</option>
+              <option data-i18n="t123" value="A better job">A better job</option>
+              <option data-i18n="t124" value="University admission">University admission</option>
+              <option data-i18n="t125" value="Something else">Something else</option>
             </select>
           </div>
         </div>
         <div class="field">
-          <label for="country">Country you live in</label>
+          <label data-i18n="t126" for="country">Country you live in</label>
           <input type="text" id="country" name="country" required placeholder="e.g. Saudi Arabia, UK, Nigeria">
         </div>
         <div class="field-row">
           <div class="field">
-            <label for="band">Band score you need (if you know it)</label>
+            <label data-i18n="t127" for="band">Band score you need (if you know it)</label>
             <input type="text" id="band" name="target_band" placeholder="e.g. 6.5">
           </div>
           <div class="field">
-            <label for="deadline">When do you need it?</label>
+            <label data-i18n="t128" for="deadline">When do you need it?</label>
             <input type="text" id="deadline" name="deadline" placeholder="e.g. by March 2027">
           </div>
         </div>
         <div class="field">
-          <label for="course">I’m interested in</label>
+          <label data-i18n="t129" for="course">I’m interested in</label>
           <select id="course" name="course_track">
-            <option>Not sure yet — recommend after my free session</option>
-            <option>Speaking track</option>
-            <option>Writing track</option>
-            <option>Both tracks (Speaking + Writing)</option>
-            <option>IELTS Preparation Course</option>
-            <option>IELTS Preparation Course (private)</option>
-            <option>Last-Minute Booster Camp (Nov 15–20)</option>
+            <option data-i18n="t130" value="Not sure yet — recommend after my free session">Not sure yet — recommend after my free session</option>
+            <option data-i18n="t131" value="Speaking track">Speaking track</option>
+            <option data-i18n="t132" value="Writing track">Writing track</option>
+            <option data-i18n="t133" value="Both tracks (Speaking + Writing)">Both tracks (Speaking + Writing)</option>
+            <option data-i18n="t100" value="IELTS Preparation Course">IELTS Preparation Course</option>
+            <option data-i18n="t134" value="IELTS Preparation Course (private)">IELTS Preparation Course (private)</option>
+            <option data-i18n="t135" value="Last-Minute Booster Camp (Nov 15–20)">Last-Minute Booster Camp (Nov 15–20)</option>
           </select>
         </div>
-        <div class="inline-hint booster" id="boosterHint">⚡ The Booster Camp runs <strong>Nov 15–20</strong> (3 days Speaking + 3 days Writing, 2 hrs each) for <strong>1,000 EGP</strong> ($20). We’ll confirm your seat quickly.</div>
+        <div data-i18n="t136" class="inline-hint booster" id="boosterHint">⚡ The Booster Camp runs <strong>Nov 15–20</strong> (3 days Speaking + 3 days Writing, 2 hrs each) for <strong data-i18n="t86">1,000 EGP</strong> ($20). We’ll confirm your seat quickly.</div>
         <div class="price-hint" id="priceHint"></div>
         <div class="field" style="margin-top:18px;">
-          <label>Preferred time slot <span style="font-weight:500;color:var(--muted);">(Cairo time)</span></label>
+          <label data-i18n="t137">Preferred time slot <span style="font-weight:500;color:var(--muted);">(Cairo time)</span></label>
           <div class="radio-row">
-            <label class="radio-option"><input type="radio" name="time_slot" value="Morning" id="timeMorning" checked> Morning</label>
-            <label class="radio-option"><input type="radio" name="time_slot" value="Afternoon" id="timeAfternoon"> Afternoon</label>
-            <label class="radio-option"><input type="radio" name="time_slot" value="Evening" id="timeEvening"> Evening</label>
+            <label class="radio-option"><input type="radio" name="time_slot" value="Morning" id="timeMorning" checked> <span data-i18n="t138">Morning</span></label>
+            <label class="radio-option"><input type="radio" name="time_slot" value="Afternoon" id="timeAfternoon"> <span data-i18n="t139">Afternoon</span></label>
+            <label class="radio-option"><input type="radio" name="time_slot" value="Evening" id="timeEvening"> <span data-i18n="t140">Evening</span></label>
           </div>
           <div class="form-note" id="tzNote" style="margin-top:8px;"></div>
         </div>
         <div class="field discount-field grad-offer">
-          <label>Are you a 2026 high school graduate? <span style="color:var(--gold);">Get 26% off 🎓</span></label>
+          <label data-i18n="t143">Are you a 2026 high school graduate? <span style="color:var(--gold);">Get 26% off 🎓</span></label>
           <div class="radio-row">
-            <label class="radio-option"><input type="radio" name="grad_2026" value="Yes" id="gradYes"> Yes</label>
-            <label class="radio-option"><input type="radio" name="grad_2026" value="No" id="gradNo" checked> No</label>
+            <label class="radio-option"><input type="radio" name="grad_2026" value="Yes" id="gradYes"> <span data-i18n="t141">Yes</span></label>
+            <label class="radio-option"><input type="radio" name="grad_2026" value="No" id="gradNo" checked> <span data-i18n="t142">No</span></label>
           </div>
         </div>
         <div class="field discount-field october-only">
           <label>Ladies’ October Offer — would you like the 20% women’s discount? <span style="color:var(--pink);">🎀</span></label>
           <div class="radio-row">
-            <label class="radio-option"><input type="radio" name="ladies_offer" value="Yes" id="ladiesYes"> Yes</label>
-            <label class="radio-option"><input type="radio" name="ladies_offer" value="No" id="ladiesNo" checked> No</label>
+            <label class="radio-option"><input type="radio" name="ladies_offer" value="Yes" id="ladiesYes"> <span data-i18n="t141">Yes</span></label>
+            <label class="radio-option"><input type="radio" name="ladies_offer" value="No" id="ladiesNo" checked> <span data-i18n="t142">No</span></label>
           </div>
           <div class="inline-hint" id="ladiesHint">🎀 You’ll get <strong>20% off</strong> your plan, with <strong>women-only groups</strong> available. We’re proud to support Breast Cancer Awareness Month — early detection saves lives, so please don’t forget your own check-up. 💗</div>
         </div>
         <div class="field">
-          <label for="message">Anything else we should know?</label>
+          <label data-i18n="t144" for="message">Anything else we should know?</label>
           <textarea id="message" name="message" rows="3"></textarea>
         </div>
         <div id="turnstileBox" style="margin-bottom:14px;"></div>
-        <button type="submit" class="btn btn-primary" id="regSubmit" style="width:100%;">Book my free session</button>
-        <p class="form-note">We’ll only use your details to arrange your session and send course updates — no other mailing lists.</p>
-        <div id="confirm">Thanks — your request is in! We’ll contact you within one business day to arrange your free placement test session.</div>
+        <button data-i18n="t145" type="submit" class="btn btn-primary" id="regSubmit" style="width:100%;">Book my free session</button>
+        <p data-i18n="t146" class="form-note">We’ll only use your details to arrange your session and send course updates — no other mailing lists.</p>
+        <div data-i18n="t147" id="confirm">Thanks — your request is in! We’ll contact you within one business day to arrange your free placement test session.</div>
       </form>
       <div id="regSuccess" style="display:none;text-align:center;padding:30px 10px;">
         <div style="font-size:44px;line-height:1;">✅</div>
-        <h3 style="font-family:var(--font-display);font-size:24px;margin:14px 0 10px;">Thanks for registering!</h3>
-        <p style="color:var(--muted);margin:0 0 20px;">Your registration is received. We’ll contact you within one business day to arrange your free placement test session. Log in to your student portal to see your status.</p>
-        <a class="btn btn-primary" href="https://ifcportal.vercel.app" rel="noopener">Log in to your student portal</a>
+        <h3 data-i18n="t148" style="font-family:var(--font-display);font-size:24px;margin:14px 0 10px;">Thanks for registering!</h3>
+        <p data-i18n="t149" style="color:var(--muted);margin:0 0 20px;">Your registration is received. We’ll contact you within one business day to arrange your free placement test session. Log in to your student portal to see your status.</p>
+        <a data-i18n="t150" class="btn btn-primary" href="https://ifcportal.vercel.app" rel="noopener">Log in to your student portal</a>
       </div>
     </div>
   </div>
@@ -812,25 +821,25 @@
 <section id="contact">
   <div class="wrap">
     <div class="section-head">
-      <div class="eyebrow">Contact</div>
-      <h2>Questions before you book?</h2>
+      <div data-i18n="t6" class="eyebrow">Contact</div>
+      <h2 data-i18n="t151">Questions before you book?</h2>
     </div>
     <div class="contact-grid">
       <div class="contact-item">
-        <div class="label">Email</div>
+        <div data-i18n="t116" class="label">Email</div>
         <div class="value"><a href="mailto:moniasallam25@gmail.com" style="color:inherit;text-decoration:none;">moniasallam25@gmail.com</a></div>
       </div>
       <div class="contact-item">
-        <div class="label">Phone / WhatsApp</div>
-        <div class="value"><a href="https://wa.me/201557025096" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">+20 155 702 5096</a></div>
+        <div data-i18n="t152" class="label">Phone / WhatsApp</div>
+        <div class="value"><a href="https://wa.me/201557025096" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;" dir="ltr">+20 155 702 5096</a></div>
       </div>
       <div class="contact-item">
-        <div class="label">Office hours</div>
-        <div class="value">Sun – Thu, 10:00 – 18:00 (Cairo time)</div>
+        <div data-i18n="t153" class="label">Office hours</div>
+        <div data-i18n="t154" class="value">Sun – Thu, 10:00 – 18:00 (Cairo time)</div>
       </div>
       <div class="contact-item">
-        <div class="label">Class size</div>
-        <div class="value">Capped at 6–10 students</div>
+        <div data-i18n="t155" class="label">Class size</div>
+        <div data-i18n="t156" class="value">Capped at 6–10 students</div>
       </div>
     </div>
   </div>
@@ -876,10 +885,13 @@
   const stepperTitle = document.getElementById('stepperTitle');
   const stepperDetail = document.getElementById('stepperDetail');
   const cardBgTrack = document.getElementById('cardBgTrack');
+  // Current language ('en' or 'ar'); L(english, arabic) picks the right text
+  let LANG = 'en';
+  function L(en, ar){ return LANG === 'ar' ? ar : en; }
   const stepData = {
-    1: {title:'Step 1 — Free Consultation', detail:'Placement test + one-to-one session · find your real level · free'},
-    2: {title:'Step 2 — Your Personal Plan', detail:'Speaking, Writing, or both · built around your weak skills · 4 weeks'},
-    3: {title:'Step 3 — IELTS Preparation', detail:'6 weeks · all four exam skills · reach the band you need'}
+    1: {title:['Step 1 — Free Consultation', 'الخطوة 1 — استشارة مجانية'], detail:['Placement test + one-to-one session · find your real level · free', 'اختبار تحديد مستوى + جلسة فردية · اعرف مستواك الحقيقي · مجانًا']},
+    2: {title:['Step 2 — Your Personal Plan', 'الخطوة 2 — خطتك الشخصية'], detail:['Speaking, Writing, or both · built around your weak skills · 4 weeks', 'المحادثة أو الكتابة أو كلاهما · مبنية على نقاط ضعفك · 4 أسابيع']},
+    3: {title:['Step 3 — IELTS Preparation', 'الخطوة 3 — التحضير للآيلتس'], detail:['6 weeks · all four exam skills · reach the band you need', '6 أسابيع · المهارات الأربع للامتحان · لتصل إلى الدرجة التي تحتاجها']}
   };
   steps.forEach(step => {
     step.addEventListener('click', () => {
@@ -895,8 +907,8 @@
     const data = stepData[stepNum];
     [stepperTitle, stepperDetail].forEach(el => el.classList.add('fading'));
     setTimeout(() => {
-      stepperTitle.textContent = data.title;
-      stepperDetail.textContent = data.detail;
+      stepperTitle.textContent = L(...data.title);
+      stepperDetail.textContent = L(...data.detail);
       [stepperTitle, stepperDetail].forEach(el => el.classList.remove('fading'));
     }, 220);
   }
@@ -932,8 +944,8 @@
     const now = new Date();
     const diff = COHORT_START - now;
     if(diff <= 0){
-      countdownTitle.textContent = "Term 2 has started!";
-      countdownNote.textContent = "Book your free placement test session to join the next group.";
+      countdownTitle.textContent = L("Term 2 has started!", "بدأ الفصل الثاني!");
+      countdownNote.textContent = L("Book your free placement test session to join the next group.", "احجز جلسة تحديد المستوى المجانية للانضمام إلى المجموعة القادمة.");
       document.getElementById('countdownBoxes').style.display = 'none';
       clearInterval(countdownTimer);
       return;
@@ -951,14 +963,15 @@
   updateCountdown();
 
   // Time-zone helper for students outside Egypt
-  try{
+  function updateTzNote(){ try{
     const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
     const cairoTime = new Date().toLocaleTimeString('en-GB', {timeZone:'Africa/Cairo', hour:'2-digit', minute:'2-digit'});
     const myTime = new Date().toLocaleTimeString('en-GB', {hour:'2-digit', minute:'2-digit'});
     if(tz && tz !== 'Africa/Cairo' && cairoTime !== myTime){
-      document.getElementById('tzNote').textContent = `Classes run on Cairo time. Right now it’s ${cairoTime} in Cairo and ${myTime} where you are.`;
+      document.getElementById('tzNote').textContent = L(`Classes run on Cairo time. Right now it’s ${cairoTime} in Cairo and ${myTime} where you are.`, `الحصص بتوقيت القاهرة. الساعة الآن ${cairoTime} في القاهرة و${myTime} في مكانك.`);
     }
-  }catch(e){}
+  }catch(e){} }
+  updateTzNote();
 
   // registration form helpers: Booster + Ladies' Offer hints
   const courseSelect = document.getElementById('course');
@@ -970,20 +983,21 @@
   // Fixed prices shown under the course choice (Egyptian pounds first, then US dollars)
   const priceHint = document.getElementById('priceHint');
   const COURSE_PRICES = {
-    'Speaking track': {egp:'3,500 EGP', usd:'$70'},
-    'Writing track': {egp:'3,500 EGP', usd:'$70'},
-    'Both tracks (Speaking + Writing)': {egp:'6,000 EGP', usd:'$120', was:'<s>7,000 EGP</s> <s>$140</s>', save:'Save 1,000 EGP'},
-    'IELTS Preparation Course': {egp:'5,000 EGP', usd:'$100', note:'group'},
-    'IELTS Preparation Course (private)': {egp:'6,000 EGP', usd:'$120', note:'private'}
+    'Speaking track': {egp:'3,500', usd:'$70'},
+    'Writing track': {egp:'3,500', usd:'$70'},
+    'Both tracks (Speaking + Writing)': {egp:'6,000', usd:'$120', was:['7,000', '$140'], save:'1,000'},
+    'IELTS Preparation Course': {egp:'5,000', usd:'$100', note:['group', 'مجموعة']},
+    'IELTS Preparation Course (private)': {egp:'6,000', usd:'$120', note:['private', 'خاص']}
   };
   function updatePrice(){
     const p = COURSE_PRICES[courseSelect.value];
     priceHint.classList.toggle('show', !!p);
     if(!p){ priceHint.innerHTML = ''; return; }
-    priceHint.innerHTML = 'Price' + (p.note ? ' (' + p.note + ')' : '') + ':<div class="price">' +
-      (p.was ? '<span class="was">' + p.was + '</span>' : '') +
-      '<span class="egp">' + p.egp + '</span><span class="usd">' + p.usd + '</span>' +
-      (p.save ? '<span class="save-note">' + p.save + '</span>' : '') + '</div>';
+    const cur = L(' EGP', ' جنيه');
+    priceHint.innerHTML = L('Price', 'السعر') + (p.note ? ' (' + L(...p.note) + ')' : '') + ':<div class="price">' +
+      (p.was ? '<span class="was"><s>' + p.was[0] + cur + '</s> <s>' + p.was[1] + '</s></span>' : '') +
+      '<span class="egp">' + p.egp + cur + '</span><span class="usd">' + p.usd + '</span>' +
+      (p.save ? '<span class="save-note">' + L('Save ', 'وفّر ') + p.save + cur + '</span>' : '') + '</div>';
   }
 
   function updateHints(){
@@ -1052,14 +1066,14 @@
 
     const email = form.email.value.trim();
     const password = form.password.value;
-    if(password.length < 8){ showFormMessage('Please choose a password with at least 8 characters.'); return; }
-    if(password !== form.password2.value){ showFormMessage('The two passwords do not match. Please type them again.'); return; }
-    if(!sb){ showFormMessage('Something went wrong loading the sign-up. Please refresh the page, or message us on WhatsApp at +20 155 702 5096.'); return; }
-    if(TURNSTILE_SITE_KEY && !turnstileToken){ showFormMessage('Please wait for the security check above the button to finish, then try again.'); return; }
+    if(password.length < 8){ showFormMessage(L('Please choose a password with at least 8 characters.', 'من فضلك اختر كلمة مرور من 8 أحرف على الأقل.')); return; }
+    if(password !== form.password2.value){ showFormMessage(L('The two passwords do not match. Please type them again.', 'كلمتا المرور غير متطابقتين. من فضلك اكتبهما مرة أخرى.')); return; }
+    if(!sb){ showFormMessage(L('Something went wrong loading the sign-up. Please refresh the page, or message us on WhatsApp at +20 155 702 5096.', 'حدثت مشكلة في تحميل التسجيل. من فضلك حدّث الصفحة، أو راسلنا على واتساب: +20 155 702 5096.')); return; }
+    if(TURNSTILE_SITE_KEY && !turnstileToken){ showFormMessage(L('Please wait for the security check above the button to finish, then try again.', 'من فضلك انتظر حتى ينتهي التحقق الأمني فوق الزر، ثم حاول مرة أخرى.')); return; }
 
     const btn = document.getElementById('regSubmit');
     btn.disabled = true;
-    const oldLabel = btn.textContent; btn.textContent = 'Registering…';
+    const oldLabel = btn.textContent; btn.textContent = L('Registering…', 'جارٍ التسجيل…');
     try {
       // 1) Create the portal account. The portal itself sets the status to "pending";
       //    nothing sent from this form can change that.
@@ -1075,17 +1089,17 @@
         if(turnstileWidget !== null){ window.turnstile.reset(turnstileWidget); turnstileToken = ''; }
         const m = (error.message || '').toLowerCase();
         if(m.includes('already registered') || m.includes('already been registered')){
-          showFormMessage('This email already has an account. Please log in to the student portal at ' + PORTAL_URL + ' (use “Forgot password?” if you need to).');
+          showFormMessage(L('This email already has an account. Please log in to the student portal at ' + PORTAL_URL + ' (use “Forgot password?” if you need to).', 'هذا البريد الإلكتروني له حساب بالفعل. من فضلك سجّل الدخول إلى بوابة الطلاب: ' + PORTAL_URL + ' (استخدم “Forgot password?” إذا احتجت).'));
         } else if(m.includes('password')){
-          showFormMessage('That password is not accepted: ' + error.message);
+          showFormMessage(L('That password is not accepted: ', 'كلمة المرور هذه غير مقبولة: ') + error.message);
         } else {
-          showFormMessage('We could not create your account: ' + error.message + '. Please try again, or message us on WhatsApp at +20 155 702 5096.');
+          showFormMessage(L('We could not create your account: ', 'لم نتمكن من إنشاء حسابك: ') + error.message + L('. Please try again, or message us on WhatsApp at +20 155 702 5096.', '. من فضلك حاول مرة أخرى، أو راسلنا على واتساب: +20 155 702 5096.'));
         }
         return;
       }
       // Supabase hides whether an email is already taken when confirmation is on; an empty identities list means "taken".
       if(data && data.user && Array.isArray(data.user.identities) && data.user.identities.length === 0){
-        showFormMessage('This email already has an account. Please log in to the student portal at ' + PORTAL_URL + ' (use “Forgot password?” if you need to).');
+        showFormMessage(L('This email already has an account. Please log in to the student portal at ' + PORTAL_URL + ' (use “Forgot password?” if you need to).', 'هذا البريد الإلكتروني له حساب بالفعل. من فضلك سجّل الدخول إلى بوابة الطلاب: ' + PORTAL_URL + ' (استخدم “Forgot password?” إذا احتجت).'));
         return;
       }
       try { await sb.auth.signOut(); } catch(_) {}
@@ -1107,6 +1121,55 @@
       btn.disabled = false; btn.textContent = oldLabel;
     }
   });
+
+  // ---------- Language: English / Arabic ----------
+  // Every text with data-i18n="tN" has its Arabic in I18N_AR. The English stays in the page itself.
+  const I18N_AR = { "t37": "لذلك نبدأ بمعرفة مستواك. جلسة تحديد المستوى المجانية تُظهر مستواك الحقيقي في كل مهارة. ثم نقترح عليك خطة شخصية: مسارًا مركّزًا للمحادثة أو الكتابة (أو كليهما) لمعالجة ما يعيقك، يليه التحضير للآيلتس. وإذا كانت لغتك الإنجليزية قوية بالفعل، تنتقل مباشرة إلى التحضير للآيلتس، دون أن تضيّع وقتًا أو مالًا على ما لا تحتاجه. الفصول صغيرة (6–10 طلاب)، فيحصل كل طالب على ملاحظات حقيقية.", "t36": "معظم دورات الآيلتس تضع الجميع في البرنامج نفسه، سواء احتاجوه أم لا. لكن من خبرتنا، ما يعيق درجة الطالب عادةً هو مهارة أو مهارتان، غالبًا المحادثة والكتابة، بينما بقية المهارات جيدة بما يكفي.", "t11": "لخريجي الثانوية والجامعة الذين يسعون إلى منحة دراسية أو وظيفة أفضل. <span class=\"highlight-text\">جلسة تحديد المستوى المجانية</span> تكشف مستواك الحقيقي، ثم نضع لك خطة شخصية تركّز بالضبط على ما يعيق درجتك.", "t71": "المهارات الأربع للامتحان، بما فيها استراتيجيات القراءة والاستماع، ومهام الكتابة والمحادثة، واختبارات تدريبية. إذا أظهر اختبار تحديد المستوى أنك جاهز، تبدأ من هنا.", "t136": "⚡ يُقام معسكر المراجعة من <strong>15 إلى 20 نوفمبر</strong> (3 أيام محادثة + 3 أيام كتابة، ساعتان يوميًا) مقابل <strong>1,000 جنيه</strong> ($20). سنؤكد مقعدك بسرعة.", "t149": "تم استلام تسجيلك. سنتواصل معك خلال يوم عمل واحد لتحديد موعد جلسة تحديد المستوى المجانية. سجّل الدخول إلى بوابة الطلاب لمتابعة حالة طلبك.", "t48": "ستة أسابيع من التحضير للامتحان (24 حصة) في المهارات الأربع، بما فيها استراتيجيات القراءة والاستماع، لتصل إلى الدرجة التي تطلبها المنحة أو الوظيفة.", "t45": "تؤدي اختبار تحديد المستوى، ثم تلتقي بمعلم في جلسة فردية. ستعرف مستواك الحقيقي ونقاط قوتك، والمهارات التي تعيق درجتك بالضبط.", "t47": "نقترح عليك ما تحتاجه فعلًا: مسار المحادثة أو مسار الكتابة أو كليهما. المفردات والقواعد جزء من كل حصة.", "t33": "حصص مباشرة على Zoom، بالإضافة إلى دروسك وواجباتك وملاحظات المعلم وتقارير تقدّمك في مكان واحد، أينما كنت في العالم.", "t29": "جلسة تحديد المستوى المجانية تُظهر بالضبط المهارات التي تعيق درجتك، فلا تدفع مقابل دروس لا تحتاجها.", "t61": "بناء الفقرة والمقال، والدقة، والمفردات اللازمة لتطوير أفكارك، مع تصحيح وملاحظات على كتابتك.", "t59": "الطلاقة والنطق وبناء إجابات كاملة، مع مفردات الموضوعات والقواعد التي تساعدك على التعبير عن أفكارك بوضوح.", "t43": "مصمَّم للطلاب والخريجين المتقدمين لمنح دراسية أو وظائف أفضل، حيث قد تحسم درجة الآيلتس كل شيء.", "t147": "شكرًا — وصلنا طلبك! سنتواصل معك خلال يوم عمل واحد لتحديد موعد جلسة تحديد المستوى المجانية.", "t31": "لا يزيد عدد الطلاب في الفصل عن 6–10 طلاب، لذلك تحصل في كل حصة على تقييم وملاحظات شخصية على المحادثة والكتابة.", "t110": "أخبرنا قليلًا عنك وعن هدفك. سنتواصل معك خلال يوم عمل واحد لتحديد موعد جلستك المجانية.", "t91": "🎓 من خريجي الثانوية العامة 2026؟ احصل على <strong>خصم 26%</strong> — فقط أجب عن السؤال في النموذج بالأسفل.", "t119": "بهذا يُنشأ حسابك المجاني في بوابة الطلاب، وستستخدمه لتسجيل الدخول بعد موافقتنا على تسجيلك.", "t146": "سنستخدم بياناتك فقط لتحديد موعد جلستك وإرسال أخبار الدورات — دون أي قوائم بريدية أخرى.", "t90": "جلسة تحديد المستوى المجانية توضح لك الخطة المناسبة. اسألنا عن الدفع على قسطين.", "t65": "للطلاب الذين يحتاجون إلى تطوير المحادثة والكتابة معًا: حصة واحدة يوميًا من الأحد إلى الأربعاء.", "t26": "امتحانك قريب؟ <a href=\"#offers\">معسكر المراجعة السريعة</a> القادم من 15 إلى 20 نوفمبر.", "t51": "مدة كل مسار 4 أسابيع في مجموعات صغيرة، وجلستك المجانية تحدد المسار الذي تحتاجه.", "t78": "للطلاب الذين يذاكرون بأنفسهم ولديهم امتحان آيلتس قريب ويحتاجون إلى تدريب مركّز الآن.", "t143": "هل أنت من خريجي الثانوية العامة 2026؟ <span style=\"color:var(--gold);\">احصل على خصم 26% 🎓</span>", "t137": "الموعد المفضّل <span style=\"font-weight:500;color:var(--muted);\">(بتوقيت القاهرة)</span>", "t106": "اختبار تحديد المستوى وجلسة فردية مع معلم، وخطتك الشخصية.", "t35": "<span style=\"color:#D64545;\">لماذا</span> نبدأ باختبار تحديد المستوى؟", "t101": "24 حصة على مدار 6 أسابيع في مجموعة صغيرة، تشمل المهارات الأربع.", "t113": "نقترح عليك خطتك الشخصية، والقرار لك في الانضمام.", "t112": "تلتقي بمعلم في جلسة فردية لمراجعة نتائجك.", "t10": "اكتشف نقاط ضعفك.<br>عالجها. ثم <em>تفوّق في الآيلتس.</em>", "t70": "6 أسابيع · 24 حصة · 4 حصص أسبوعيًا (الأحد–الأربعاء) · 3 ساعات للحصة", "t64": "4 أسابيع · 4 حصص أسبوعيًا (الأحد–الأربعاء) · 2.5 ساعة للحصة", "t20": "انتهى التسجيل في الفصل الأول — التسجيل في الفصل الثاني مفتوح الآن.", "t67": "واثق من مستواك؟ انتقل مباشرة إلى التحضير للآيلتس", "t103": "التحضير للآيلتس في حصص فردية مع معلم.", "t98": "شهر واحد: المساران معًا، 16 حصة على مدار 4 أسابيع.", "t130": "لست متأكدًا بعد — اقترحوا عليّ بعد جلستي المجانية", "t9": "للباحثين عن منحة دراسية أو فرصة عمل أفضل", "t58": "4 أسابيع · حصتان أسبوعيًا · 2.5 ساعة للحصة", "t27": "لماذا يختار الطلاب IELTS Foundation Camp", "t117": "اختر كلمة مرور (8 أحرف على الأقل)", "t79": "3 أيام تدريب على المحادثة (ساعتان يوميًا)", "t80": "3 أيام تدريب على الكتابة (ساعتان يوميًا)", "t77": "15–20 نوفمبر · 6 حصص · ساعتان للحصة", "t109": "احجز جلسة تحديد المستوى المجانية", "t154": "الأحد – الخميس، 10:00 – 18:00 (بتوقيت القاهرة)", "t40": "مساران مركّزان: المحادثة والكتابة", "t127": "الدرجة التي تحتاجها (إن كنت تعرفها)", "t135": "معسكر المراجعة السريعة (15–20 نوفمبر)", "t120": "رقم الواتساب (مع رمز الدولة)", "t134": "دورة التحضير للآيلتس (خاص)", "t42": "ثلاث خطوات للوصول إلى الدرجة التي تحتاجها", "t50": "عالج المهارات التي تعيقك", "t94": "شهر واحد: 8 حصص على مدار 4 أسابيع.", "t111": "تؤدي اختبار تحديد مستوى قصيرًا.", "t133": "المساران معًا (المحادثة + الكتابة)", "t57": "تحدّث بطلاقة وثقة", "t76": "امتحانك قريب؟ أسبوع واحد مكثّف.", "t12": "احجز اختبار تحديد المستوى المجاني", "t69": "ستة أسابيع من التحضير للامتحان", "t144": "هل هناك شيء آخر تودّ إخبارنا به؟", "t150": "سجّل الدخول إلى بوابة الطلاب", "t60": "اكتب بوضوح ودقة", "t14": "طريقك الشخصي إلى الآيلتس", "t28": "نشخّص قبل أن نُدرّس", "t30": "مجموعات صغيرة وملاحظات حقيقية", "t44": "جلسة تحديد المستوى المجانية", "t102": "التحضير للآيلتس · خاص", "t114": "تفضّل واتساب؟ راسلنا", "t41": "أسابيع من التحضير للآيلتس", "t89": "ادفع فقط مقابل ما تحتاجه", "t151": "لديك أسئلة قبل الحجز؟", "t21": "الأحد 15 نوفمبر 2026", "t81": "احجز معسكر نوفمبر", "t99": "التحضير للآيلتس · مجموعة", "t49": "الخطوة 2: المسارات المركّزة", "t68": "دورة التحضير للآيلتس", "t73": "العروض والدورات القصيرة", "t75": "معسكر المراجعة السريعة", "t100": "دورة التحضير للآيلتس", "t32": "بوابتك الخاصة كطالب", "t118": "اكتب كلمة المرور مرة أخرى", "t148": "شكرًا لتسجيلك!", "t156": "من 6 إلى 10 طلاب كحد أقصى", "t39": "جلسة تحديد المستوى", "t105": "جلسة تحديد المستوى", "t63": "المساران معًا", "t122": "منحة دراسية في الخارج", "t124": "القبول في الجامعة", "t128": "متى تحتاجها؟", "t145": "احجز جلستي المجانية", "t108": "اختبار تحديد مستوى مجاني", "t126": "بلد الإقامة", "t16": "خطتك الشخصية", "t46": "خطتك الشخصية", "t62": "المحادثة + الكتابة", "t97": "المحادثة + الكتابة", "t15": "استشارة مجانية", "t17": "التحضير للآيلتس", "t121": "ما هدفك؟", "t129": "أنا مهتم بـ", "t13": "تعرّف على طريقة عملنا", "t152": "الهاتف / واتساب", "t8": "احجز اختبارك المجاني", "t34": "عن المعسكر", "t55": "مسار المحادثة", "t72": "عروض خاصة", "t87": "وفّر 1,000 جنيه", "t92": "دورة المحادثة", "t125": "هدف آخر", "t131": "مسار المحادثة", "t7": "دخول الطلاب", "t19": "بداية الفصل الثاني", "t56": "مسار الكتابة", "t93": "دورة الكتابة", "t132": "مسار الكتابة", "t3": "كيف نعمل", "t18": "ما الذي ستحصل عليه", "t74": "القادم: 15 نوفمبر", "t123": "وظيفة أفضل", "t153": "ساعات العمل", "t96": "المساران معًا", "t107": "احجز الآن", "t88": "0 جنيه · $0", "t95": "أفضل قيمة", "t155": "عدد الطلاب في الفصل", "t82": "3,500 جنيه", "t83": "5,000 جنيه", "t84": "6,000 جنيه", "t85": "7,000 جنيه", "t86": "1,000 جنيه", "t115": "الاسم الكامل", "t139": "بعد الظهر", "t52": "المحادثة", "t5": "الأسعار", "t6": "تواصل معنا", "t24": "دقائق", "t25": "ثوانٍ", "t53": "الكتابة", "t138": "صباحًا", "t140": "مساءً", "t1": "لماذا نحن", "t4": "العروض", "t66": "الخطوة 3", "t2": "من نحن", "t23": "ساعات", "t116": "البريد الإلكتروني", "t22": "أيام", "t38": "مجانًا", "t54": "كلاهما", "t104": "مجانًا", "t141": "نعم", "t142": "لا" };
+  const I18N_PLACEHOLDERS_AR = {phone:'مثال: +20 100 123 4567', country:'مثال: مصر، السعودية، الإمارات', band:'مثال: 6.5', deadline:'مثال: قبل مارس 2027'};
+  const I18N_TITLE_AR = 'IELTS Foundation Camp — اكتشف نقاط ضعفك، عالجها، ثم تفوّق في الآيلتس';
+  const I18N_DESC_AR = 'لخريجي الثانوية والجامعة الذين يسعون إلى منحة دراسية أو وظيفة أفضل: جلسة مجانية لتحديد المستوى، وخطة شخصية لمهاراتك الأضعف، ثم التحضير للآيلتس.';
+  const i18nEn = new Map();
+  const langBtn = document.getElementById('langBtn');
+  const metaDesc = document.querySelector('meta[name="description"]');
+  const EN_TITLE = document.title, EN_DESC = metaDesc ? metaDesc.content : '';
+  function setLang(lang, save){
+    LANG = lang === 'ar' ? 'ar' : 'en';
+    const ar = LANG === 'ar';
+    document.documentElement.lang = LANG;
+    document.documentElement.dir = ar ? 'rtl' : 'ltr';
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      if(!i18nEn.has(el)) i18nEn.set(el, el.innerHTML);
+      const t = ar ? I18N_AR[el.dataset.i18n] : i18nEn.get(el);
+      if(t !== undefined) el.innerHTML = t;
+    });
+    Object.keys(I18N_PLACEHOLDERS_AR).forEach(id => {
+      const el = document.getElementById(id);
+      if(!el) return;
+      if(el.dataset.phEn === undefined) el.dataset.phEn = el.placeholder;
+      el.placeholder = ar ? I18N_PLACEHOLDERS_AR[id] : el.dataset.phEn;
+    });
+    document.title = ar ? I18N_TITLE_AR : EN_TITLE;
+    if(metaDesc) metaDesc.content = ar ? I18N_DESC_AR : EN_DESC;
+    langBtn.textContent = ar ? 'English' : 'العربية';
+    langBtn.lang = ar ? 'en' : 'ar';
+    langBtn.setAttribute('aria-label', ar ? 'View the website in English' : 'عرض الموقع بالعربية');
+    // texts written by the script
+    stepperTitle.textContent = L(...stepData[currentStep].title);
+    stepperDetail.textContent = L(...stepData[currentStep].detail);
+    updateCountdown();
+    updateTzNote();
+    updatePrice();
+    if(save){ try{ localStorage.setItem('ifc-lang', LANG); }catch(e){} }
+  }
+  langBtn.addEventListener('click', () => setLang(LANG === 'ar' ? 'en' : 'ar', true));
+  // First visit: ?lang=ar in the link, else the visitor's last choice, else the browser's language
+  (function(){
+    let lang = null;
+    try{ const q = new URLSearchParams(location.search).get('lang'); if(q === 'ar' || q === 'en') lang = q; }catch(e){}
+    if(!lang){ try{ lang = localStorage.getItem('ifc-lang'); }catch(e){} }
+    if(!lang){ const nl = (navigator.languages && navigator.languages[0]) || navigator.language || ''; lang = nl.toLowerCase().startsWith('ar') ? 'ar' : 'en'; }
+    if(lang === 'ar') setLang('ar', false);
+  })();
 </script>
 
 </body>
