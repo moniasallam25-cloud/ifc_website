@@ -434,7 +434,7 @@
         <li><a data-i18n="t1" href="#testimonials">Why us</a></li>
         <li><a data-i18n="t2" href="#about">About</a></li>
         <li><a data-i18n="t3" href="#program">How it works</a></li>
-        <li><a data-i18n="t4" href="#offers">Offers</a></li>
+        <li class="booster-offer"><a data-i18n="t4" href="#offers">Offers</a></li>
         <li><a data-i18n="t5" href="#pricing">Pricing</a></li>
         <li><a data-i18n="f0" href="#faq">FAQ</a></li>
         <li><a data-i18n="t6" href="#contact">Contact</a></li>
@@ -503,7 +503,7 @@
       <div class="countdown-box"><div class="num" id="cdSeconds">00</div><div data-i18n="t25" class="label">Seconds</div></div>
     </div>
     <a data-i18n="t12" href="#register" class="btn btn-primary countdown-cta">Book your free placement test</a>
-    <div data-i18n="t26" class="countdown-extra">Exam coming up soon? The next <a href="#offers">Last-Minute Booster Camp</a> runs Nov 15–20.</div>
+    <div data-i18n="t26" class="countdown-extra booster-offer">Exam coming up soon? The next <a href="#offers">Last-Minute Booster Camp</a> runs Nov 15–20.</div>
   </div>
 </section>
 
@@ -619,11 +619,11 @@
     </div>
 
     <!-- ---------- OFFERS ---------- -->
-    <div class="section-head" id="offers" style="margin-top:56px;margin-bottom:24px;">
+    <div class="section-head booster-offer" id="offers" style="margin-top:56px;margin-bottom:24px;">
       <div data-i18n="t72" class="eyebrow">Special offers</div>
       <h2 data-i18n="t73" style="font-size:26px;">Offers and short courses</h2>
     </div>
-    <div class="courses offers-grid">
+    <div class="courses offers-grid booster-offer">
       <div class="course offer launch october-only">
         <span class="course-badge">Until Oct 31</span>
         <div class="range">LAUNCH OFFER</div>
@@ -799,7 +799,7 @@
             <option data-i18n="t133" value="Both tracks (Speaking + Writing)">Both tracks (Speaking + Writing)</option>
             <option data-i18n="t100" value="IELTS Preparation Course">IELTS Preparation Course</option>
             <option data-i18n="t134" value="IELTS Preparation Course (private)">IELTS Preparation Course (private)</option>
-            <option data-i18n="t135" value="Last-Minute Booster Camp (Nov 15–20)">Last-Minute Booster Camp (Nov 15–20)</option>
+            <option data-i18n="t135" class="booster-offer" value="Last-Minute Booster Camp (Nov 15–20)">Last-Minute Booster Camp (Nov 15–20)</option>
           </select>
         </div>
         <div data-i18n="t136" class="inline-hint booster" id="boosterHint">⚡ The Booster Camp runs <strong>Nov 15–20</strong> (3 days Speaking + 3 days Writing, 2 hrs each) for <strong data-i18n="t86">1,000 EGP</strong> ($20). We’ll confirm your seat quickly.</div>
@@ -1035,6 +1035,10 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+  // Last-Minute Booster Camp: hidden for now (owner, 2026-11-24). Change false to true to show it again
+  // (Offers menu link, countdown line, Offers section, and the option in the registration form).
+  const SHOW_BOOSTER = false;
+  if(!SHOW_BOOSTER) document.querySelectorAll('.booster-offer').forEach(el => el.remove());
   // Pink October (and the October-only offers) switch off from November 1, 2026
   if(new Date() >= new Date('2026-11-01T00:00:00')) document.body.classList.remove('pink-october');
   // The 2026 high school graduate offer (26% off) ends on December 31, 2026
